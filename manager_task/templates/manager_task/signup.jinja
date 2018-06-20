@@ -1,0 +1,29 @@
+{% extends 'manager_task/base.jinja' %}
+
+{% block content%}
+
+<h2>Sign up</h2>
+
+	<form  action="{{ url ('manager_task:signup')}}" method="POST">
+		{% csrf_token %}
+		{{ form }}
+
+        {% if form.errors %}
+            
+            {% for field in form %}
+                {% for error in field.errors %}
+                        <strong>{{ error }}</strong>
+                {% endfor %}
+            {% endfor %}
+            
+            {% for error in form.non_field_errors() %}
+                    <strong>{{ error }}</strong>
+            {% endfor %}
+
+        {% endif %}
+		
+		<button type="submit">Sign up</button>
+		<a href="{{ url ('manager_task:login') }}">LOGIN</a>
+	</form>
+
+{% endblock %}

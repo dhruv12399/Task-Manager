@@ -1,0 +1,74 @@
+{% extends 'manager_task/base.jinja' %}
+
+{% block content %}
+
+	<div class="jumbotron">
+  		<h2 class="display-4">Welcome, {{ request.user.username }}!</h2>
+
+  	</div>
+  <!-- <ul> -->
+	<table class="table table-dark">
+		<tr>
+			<th><a href="{{ url ('manager_task:sort_name') }}">TASK NAME</a></th>
+			<th><a href="{{ url ('manager_task:sort_addedon') }}">ADDED ON</a></th>
+			<th><a href="{{ url ('manager_task:sort_completeby') }}">DEADLINE</a></th>
+			<th>STATUS</th>
+			<th>CHANGE STATUS</th>
+			<th>REMOVE</th>
+			<th>EDIT</th>
+		</tr>
+
+
+
+	{% for task in tasklist %}
+		{% if task.is_deleted == 0 %}
+		
+		<tr>
+			<td>{{task.task_name}}</td>
+			<td>{{task.added_on.strftime('%d %b, %Y') }}</td>
+			<td>{{task.complete_by.strftime('%d %b, %Y')}}</td>
+			<td>
+				{% if task.completed == True %}
+					COMPLETE
+				{% else %}
+					INCOMPLETE
+				{% endif %}
+			</td>
+			<td><a href="{{ url('manager_task:changestatus', task.id) }}">CHANGE STATUS</a></td>
+			<td><a href="{{ url('manager_task:deletetask', task.id) }}">REMOVE</a></td>
+			<td><a href="{{ url('manager_task:edittask', task.id) }}">EDIT</a></td>
+		</tr>
+
+		{% endif %}
+
+	{% endfor %}
+	</table>
+	
+	<a class="btn btn-primary btn-lg t-addbutton" href="{{ url ('manager_task:addtask') }}">ADD TASK</a>
+	<br>
+	<br>
+	<div class="t-feedcontainer">
+		<h3 class="display-5"}">Activity Feed</h3>
+		<div class="t-feed" >
+			<ul class="list-group">
+				{% for activity in act %}
+					<li class="list-group-item">
+						{% if activity.ac_type == 1 %}
+							{{activity.task.task_name}} was added by {{activity.task.user.username}}
+						{% elif activity.ac_type == 2 %}
+							{{activity.task.task_name}} was marked COMPLETE by {{activity.task.user.username}}
+						{% elif activity.ac_type == 3 %}
+							{{activity.task.task_name}} was deleted by {{activity.task.user.username}}
+						{% elif activity.ac_type == 4 %}
+							{{activity.task.task_name}} was edited by {{activity.task.user.username}}
+						{% elif activity.ac_type == 5 %}
+							{{activity.task.task_name}} was marked INCOMPLETE by {{activity.task.user.username}}
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+  <!-- </ul> -->
+{% endblock %}

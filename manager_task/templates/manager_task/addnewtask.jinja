@@ -1,0 +1,28 @@
+{% extends 'manager_task/base.jinja' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+
+	<div class="jumbotron">
+  		<h2 class="display-4">ADD NEW TASK</h2>
+  	</div>
+
+  <form method="post">
+	{% csrf_token %}
+	<div class="form-group">
+		{{ form.task_name.errors }}
+		<label for="{{ form.task_name.id_for_label }}">Task name:</label>
+		{{ form.task_name }}
+	</div>
+	<div class="form-group">
+		{{ form.complete_by.errors }}
+		<label for="{{ form.complete_by.id_for_label }}">Deadline:</label>
+		{{ form.complete_by }}
+	</div>
+	<button type="submit" class="btn btn-primary">ADD</button>
+  </form>
+
+  
+
+{% endblock %}

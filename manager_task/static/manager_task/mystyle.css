@@ -1,0 +1,27 @@
+h3{
+	display: block;
+	width: 300px; 
+	align-self: center; 
+	margin: 0 auto;
+	text-align: center;
+	text-transform: uppercase
+}
+
+.t-feed{
+	height: 400px;
+	overflow:scroll
+}
+
+.t-addbutton{
+	display: block;
+	width: 300px; 
+	align-self: center; 
+	margin: 0 auto;
+}
+
+.t-feedcontainer{
+	display: block;
+	width: 50%; 
+	align-self: center; 
+	margin: 0 auto
+}
